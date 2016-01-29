@@ -4,6 +4,7 @@ This widget will pull daily wallpaper from Bing's photo of the day and add a fad
 ![Screenshot of Wallpaper Widget](https://raw.githubusercontent.com/roach0123/backgroundwidget/master/screenshot.png)
 
 Example with other widgets on:
+
 ![Screenshot of Wallpaper Widget with other widgets](https://raw.githubusercontent.com/roach0123/backgroundwidget/master/screenshot2.png)
 
 
