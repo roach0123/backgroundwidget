@@ -24,12 +24,12 @@ style: """
     z-index: -10000
 
   .myimage
-    width: 2096px
+    width: 1920px
     position: absolute
     z-index: -10000
 
   .darker
-    width: 2096px
+    width: 1920px
     height: 300px
     color: green
     top: 900px
