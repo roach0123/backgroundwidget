@@ -2,7 +2,7 @@
 # Bing's photo of the day backgroud with a fade to black at the bottom of the screen to make a more usable space for other widgets.
 
 command: """
-curl -s 'http://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US' | grep -E -m 1 -o '<url>(.*)</url>' | sed -e 's,.*<url>\([^<]*\)</url>.*,\1,g'
+curl -s 'http://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US'
 """
 
 # Set the refresh frequency.
@@ -13,20 +13,21 @@ style: """
   left: 0%
   color: #fff
   
+  .wrapper
+    width: 100%
+    display: block
+    text-align: center
+  
   .wallpaper
     position: absolute
-    z-index: -10000
-    width: 100%
+    width: 150%
+    text-align: center
+    z-index: -1000
 
-  .background
-    width: 100%
-    position: absolute
+  .wallpaper img 
+    width: auto
     z-index: -10000
-
-  .myimage
-    width: 1920px
-    position: absolute
-    z-index: -10000
+    box-shadow: inset 0 0 10px #000000;
 
   .darker
     width: 1920px
@@ -49,9 +50,10 @@ render: -> """
 update: (output, domEl) ->
   mydiv = $(domEl).find('#background')
   html = ''
-  outputhtml = output.replace("<url>", "").replace("</url>", "").replace(/(?:\r\n|\r|\n)/g, '').trim()
-  html += "<div class='wallpaper'> "
-  html += "<img src='http://www.bing.com" +outputhtml+ "' class='myimage' >"
+  xmlDoc = $.parseXML( output )
+  xml = $( xmlDoc )
+  imgsrc = xml.find('url').text()
+  html += "<div class='wrapper'><div class='wallpaper'><img src='http://www.bing.com/" + imgsrc + "' height='" + $(window).height() + "' /></div>"
   html += "</div>"
   
   # Set the output
