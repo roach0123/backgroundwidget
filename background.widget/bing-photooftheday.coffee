@@ -1,18 +1,15 @@
-# Created by Sam Roach 1/21/2016
+# Created by Sam Roach
 # Bing's photo of the day backgroud with a fade to black at the bottom of the screen to make a more usable space for other widgets.
 
 command: """
 curl -s 'http://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US'
 """
-
+# 
 # Set the refresh frequency.
-refreshFrequency: '1h'
+refreshFrequency: '12h'
 
 style: """
-  top: 0%
-  left: 0%
-  color: #fff
-  
+
   .wrapper
     width: 100%
     display: block
@@ -20,30 +17,27 @@ style: """
   
   .wallpaper
     position: absolute
-    width: 150%
     text-align: center
-    z-index: -1000
+    z-index: -999
+    
 
   .wallpaper img 
     width: auto
-    z-index: -10000
-    box-shadow: inset 0 0 10px #000000;
+    z-index: -1000
 
-  .darker
-    width: 1920px
-    height: 300px
-    color: green
-    top: 900px
+  .darker 
+    background: linear-gradient(to top, #000000, rgba(0,0,0,0) 500px)
     position: absolute
-    z-index: -9998
-    background: linear-gradient(0deg, black, rgba(0, 0, 0, 0));
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    
 
 """
 
-render: -> """
+render: (output) -> """
 <div id='background'></div>
-<div class='darker'></div>
-
 """
 
 # Update the rendered output.
@@ -52,9 +46,10 @@ update: (output, domEl) ->
   html = ''
   xmlDoc = $.parseXML( output )
   xml = $( xmlDoc )
-  imgsrc = xml.find('url').text()
-  html += "<div class='wrapper'><div class='wallpaper'><img src='http://www.bing.com/" + imgsrc + "' height='" + $(window).height() + "' /></div>"
+  width = $(window).width()
+  imgsrc = 'http://www.bing.com/' + xml.find('url').text()
+  html += "<div class='wrapper'><div class='wallpaper'><img src='" + imgsrc + "' height='" + $(window).height() + "px' /><div class='darker'></div></div>"
   html += "</div>"
-  
+
   # Set the output
   mydiv.html(html)
