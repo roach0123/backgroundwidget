@@ -2,7 +2,7 @@
 # Bing's photo of the day backgroud with a fade to black at the bottom of the screen to make a more usable space for other widgets.
 
 command: """
-curl -s 'http://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US' | grep -E -m 1 -o '<url>(.*)</url>' | sed -e 's,.*<url>\([^<]*\)</url>.*,\1,g'
+curl -s 'http://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US' | grep -E -m 1 -o '<url>(.*)</url>'
 """
 
 # Set the refresh frequency.
